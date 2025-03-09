@@ -41,7 +41,7 @@ public class Navigate {
             Scene scene = FXMLInflater.inflate(EssApplication.class.getResource(layout));
 
             //
-            stage.setTitle("JAVA Haulage and Trucking");
+            stage.setTitle("Event Scheduling System");
 
             // Assign a new scene on the primary stage
             stage.setScene(scene);
