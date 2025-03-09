@@ -160,10 +160,8 @@
                                         </Button>
                                     </children>
                                 </HBox>
-                                <HBox VBox.vgrow="ALWAYS">
-                                    <children>
-                                        <TableView fx:id="tableView11" fixedCellSize="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="531.0" prefWidth="239.0" HBox.hgrow="ALWAYS" />
-                                    </children>
+                                <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                    <fx:include source="event_table_controller_layout.fxml" />
                                 </HBox>
                             </children>
                         </VBox>
