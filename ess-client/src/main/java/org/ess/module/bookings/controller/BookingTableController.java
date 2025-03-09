@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class BookingTableController extends TabController implements Initializable {
 
     @FXML
-    TableView<BookingModel> fxEventTableLayout;
+    TableView<BookingModel> fxBookingTableLayout;
 
     private final ObservableList<BookingModel> userModelObservableList = FXCollections.observableArrayList(new ArrayList<>());
 
@@ -37,7 +37,7 @@ public class BookingTableController extends TabController implements Initializab
     public void initialize(Tab tab) {
         userModelObservableList.clear();
         userModelObservableList.addAll(BookingFakeRepository.getData(50));
-        fxEventTableLayout.setItems(userModelObservableList);
+        fxBookingTableLayout.setItems(userModelObservableList);
     }
 
     @Override
@@ -64,11 +64,11 @@ public class BookingTableController extends TabController implements Initializab
 
         TableColumn<BookingModel, HBox> deleteStaff = getBookingActionsTableColumn();
 
-        fxEventTableLayout
+        fxBookingTableLayout
                 .getColumns()
                 .addAll(startDateColumn, startTimeColumn, endDateColumn, endTimeColumn,  updateAtColumn, createAtColumn, deleteStaff);
 
-        setTabType(TabType.EVENT);
+        setTabType(TabType.BOOKING);
         Platform.runLater(this);
     }
 

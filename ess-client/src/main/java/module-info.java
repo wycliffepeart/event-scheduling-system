@@ -43,4 +43,5 @@ module org.ess {
     opens org.ess.module.asset.repository to com.google.gson, javafx.fxml;
     opens org.ess.module.asset.service to com.google.gson, javafx.fxml;
     opens org.ess.module.event.controller to com.google.gson, javafx.fxml;
+    opens org.ess.module.bookings.controller to com.google.gson, javafx.fxml;
 }
