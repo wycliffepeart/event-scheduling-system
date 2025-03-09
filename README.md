@@ -153,7 +153,6 @@ erDiagram
         int id
         int event_id
         int asset_id
-        int quantity
         datetime start_time
         datetime end_time
         datetime updated_at
