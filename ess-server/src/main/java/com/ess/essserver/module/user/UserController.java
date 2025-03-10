@@ -19,7 +19,6 @@ public class UserController {
         return userModels;
     }
 
-
     @GetMapping("/{id}")
     public UserModel findById(@PathVariable int id) {
         return userModels.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
