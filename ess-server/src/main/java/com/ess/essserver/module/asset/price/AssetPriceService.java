@@ -1,5 +1,6 @@
 package com.ess.essserver.module.asset.price;
 
+import com.ess.essserver.module.asset.AssetEntity;
 import com.ess.essserver.module.asset.AssetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class AssetPriceService {
     }
 
     public AssetPriceResponseDTO createAssetPrice(Long assetId, AssetPriceRequestDTO dto) {
-        AssetPriceEntity assetPrice = assetPriceMapper.toEntity(assetId, dto);
+        AssetEntity assetEntity = assetRepository.getReferenceById(assetId);
+        AssetPriceEntity assetPrice = assetPriceMapper.toEntity(assetEntity, dto);
         assetPrice = assetPriceRepository.save(assetPrice);
         return assetPriceMapper.toResponseDTO(assetPrice);
     }
