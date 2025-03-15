@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Username: " + username);
         // Mock user for demonstration.
         // In a real application, retrieve the user from the database or another source.
         if ("user".equals(username)) {
