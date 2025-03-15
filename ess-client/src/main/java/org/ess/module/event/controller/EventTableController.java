@@ -17,7 +17,7 @@ import org.ess.app.common.TabType;
 import org.ess.app.controller.TabController;
 import org.ess.module.event.model.EventModel;
 import org.ess.module.event.repository.EventFakeRepository;
-import org.ess.module.user.route.UserRoute;
+import org.ess.app.window.View;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
@@ -82,8 +82,8 @@ public class EventTableController extends TabController implements Initializable
             var hBox = new HBox();
             var editBtn = new Button("Edit");
             var deleteBtn = new Button("Delete");
-            editBtn.setOnMouseClicked(event -> UserRoute.userFormLayout());
-            deleteBtn.setOnMouseClicked(event -> UserRoute.deleteConfirmationLayout());
+            editBtn.setOnMouseClicked(event -> View.userFormWindow());
+            deleteBtn.setOnMouseClicked(event -> View.userDeleteConfirmationWindow());
             hBox.getChildren().add(editBtn);
             hBox.getChildren().add(deleteBtn);
             hBox.setSpacing(10);

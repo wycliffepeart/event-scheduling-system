@@ -24,6 +24,7 @@ module org.ess {
     requires java.validation;
     requires javafaker;
     requires io.reactivex.rxjava3;
+    requires okhttp3;
 
     opens org.ess to javafx.fxml, lombok, com.google.gson;
     opens org.ess.module.user.controller to javafx.fxml;
@@ -44,4 +45,6 @@ module org.ess {
     opens org.ess.module.asset.service to com.google.gson, javafx.fxml;
     opens org.ess.module.event.controller to com.google.gson, javafx.fxml;
     opens org.ess.module.bookings.controller to com.google.gson, javafx.fxml;
+    exports org.ess.app.auth;
+    opens org.ess.app.auth to com.google.gson, javafx.fxml, lombok;
 }
