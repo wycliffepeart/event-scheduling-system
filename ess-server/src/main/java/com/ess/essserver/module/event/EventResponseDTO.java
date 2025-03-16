@@ -3,6 +3,7 @@ package com.ess.essserver.module.event;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,8 +13,8 @@ public class EventResponseDTO {
     private String name;
     private String location;
     private String status;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

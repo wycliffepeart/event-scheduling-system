@@ -16,6 +16,9 @@ public class AssetRequestDTO {
     @NotBlank(message = "Category is required")
     private String category;
 
+    @NotBlank(message = "Condition is required")
+    private String condition;
+
     @NotNull(message = "Quantity is required")
     @Min(value = 1, message = "Quantity must be at least 1")
     private Integer quantity;

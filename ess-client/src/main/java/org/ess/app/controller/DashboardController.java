@@ -19,4 +19,11 @@ public class DashboardController {
 
         View.assetFormWindow(Map.of("mode", FormMode.CREATE));
     }
+
+    @FXML
+    void onClickCreateEvent(MouseEvent event) {
+        logger.info("Create Event");
+
+        View.eventFormWindow(Map.of("mode", FormMode.CREATE));
+    }
 }

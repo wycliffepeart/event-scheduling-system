@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .components(components)
                 .addSecurityItem(securityRequirement) // Apply globally
                 .info(new Info()
-                        .title("Event Scheduling System API")
+                        .title("event Scheduling System API")
                         .version("1.0")
                         .description("API for managing bookings"));
     }

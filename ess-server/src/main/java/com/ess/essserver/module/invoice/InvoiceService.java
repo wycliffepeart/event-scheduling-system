@@ -33,7 +33,7 @@ public class InvoiceService {
 
     public InvoiceResponseDTO createInvoice(InvoiceRequestDTO dto) {
         EventEntity event = eventRepository.findById(dto.getEventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + dto.getEventId()));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + dto.getEventId()));
 
         BookingEntity booking = bookingRepository.findById(dto.getBookingId())
                 .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + dto.getBookingId()));
@@ -49,7 +49,7 @@ public class InvoiceService {
                 .orElseThrow(() -> new RuntimeException("Invoice not found with ID: " + id));
 
         EventEntity event = eventRepository.findById(dto.getEventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + dto.getEventId()));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + dto.getEventId()));
 
         BookingEntity booking = bookingRepository.findById(dto.getBookingId())
                 .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + dto.getBookingId()));

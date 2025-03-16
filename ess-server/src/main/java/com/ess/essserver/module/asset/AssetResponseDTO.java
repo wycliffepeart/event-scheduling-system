@@ -2,6 +2,7 @@ package com.ess.essserver.module.asset;
 
 import lombok.Builder;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -12,6 +13,7 @@ public class AssetResponseDTO {
     private String category;
     private Integer quantity;
     private String status;
+    private String condition;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

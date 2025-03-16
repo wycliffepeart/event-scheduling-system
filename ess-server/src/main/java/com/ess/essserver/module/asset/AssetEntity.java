@@ -2,6 +2,7 @@ package com.ess.essserver.module.asset;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -21,6 +22,9 @@ public class AssetEntity {
 
     @Column(nullable = false)
     private String category;
+
+    @Column(nullable = false)
+    private String condition;
 
     @Column(nullable = false)
     private int quantity;

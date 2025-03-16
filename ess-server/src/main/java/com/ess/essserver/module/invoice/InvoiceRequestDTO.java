@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 public class InvoiceRequestDTO {
 
-    @NotNull(message = "Event ID is required")
+    @NotNull(message = "event ID is required")
     private Long eventId;
 
     @NotNull(message = "Booking ID is required")

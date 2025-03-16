@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.ess.app.common.FormMode;
 import org.ess.app.common.TabType;
 import org.ess.app.controller.TabController;
-import org.ess.module.asset.Event.AssetEvent;
+import org.ess.module.asset.event.AssetEvent;
 import org.ess.module.asset.model.AssetModel;
 import org.ess.module.asset.service.AssetService;
 import org.ess.app.window.View;
@@ -63,7 +63,6 @@ public class AssetTableController extends TabController implements Initializable
     @Override
     public void initialize(Tab tab) {
         get();
-
     }
 
     @Override

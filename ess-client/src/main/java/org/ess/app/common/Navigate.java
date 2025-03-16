@@ -40,7 +40,7 @@ public class Navigate {
             Scene scene = FXMLInflater.inflate(EssApplication.class.getResource(layout));
 
             //
-            stage.setTitle("Event Scheduling System");
+            stage.setTitle("event Scheduling System");
 
             // Assign a new scene on the primary stage
             stage.setScene(scene);
@@ -48,8 +48,8 @@ public class Navigate {
             // Display the newly assigned scene
             stage.show();
 
-            scene.getWindow().setHeight(1000);
-            scene.getWindow().setWidth(800);
+            scene.getWindow().setHeight(600);
+            scene.getWindow().setWidth(600);
 
         } catch (IOException e) {
 

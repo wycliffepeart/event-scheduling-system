@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,8 +19,8 @@ public class EventRequestDTO {
     private String status;
 
     @NotNull(message = "Start date is mandatory")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotNull(message = "End date is mandatory")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 }
