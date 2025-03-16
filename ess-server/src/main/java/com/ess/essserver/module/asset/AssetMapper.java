@@ -9,6 +9,7 @@ public class AssetMapper {
         return AssetEntity.builder()
                 .name(dto.getName())
                 .category(dto.getCategory())
+                .condition(dto.getCondition())
                 .quantity(dto.getQuantity())
                 .status(dto.getStatus())
                 .build();
@@ -19,6 +20,7 @@ public class AssetMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .category(entity.getCategory())
+                .condition(entity.getCondition())
                 .quantity(entity.getQuantity())
                 .status(entity.getStatus())
                 .createdAt(entity.getCreatedAt())

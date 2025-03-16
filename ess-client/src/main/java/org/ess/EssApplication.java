@@ -8,7 +8,6 @@ import org.ess.app.websocket.JTHWebSocketClient;
 public class EssApplication extends Application {
     @Override
     public void start(Stage stage) {
-//        Navigate.root(stage, "dashboard.fxml");
         Navigate.root(stage, "auth_signin_layout.fxml");
 //        JTHWebSocketClient.connect();
     }

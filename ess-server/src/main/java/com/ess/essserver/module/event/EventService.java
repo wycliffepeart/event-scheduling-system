@@ -24,7 +24,7 @@ public class EventService {
     public EventResponseDTO getEventById(Long id) {
         return eventRepository.findById(id)
                 .map(eventMapper::toEventResponseDTO)
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + id));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));
     }
 
     public EventResponseDTO createEvent(EventRequestDTO eventRequestDTO) {
@@ -42,7 +42,7 @@ public class EventService {
 
     public EventResponseDTO updateEvent(Long id, EventRequestDTO eventRequestDTO) {
         EventEntity event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + id));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));
 
         event.setName(eventRequestDTO.getName());
         event.setLocation(eventRequestDTO.getLocation());
@@ -57,7 +57,7 @@ public class EventService {
 
     public void deleteEvent(Long id) {
         EventEntity event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + id));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));
 
         eventRepository.delete(event);
     }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class BookingRequestDTO {
 
-    @NotNull(message = "Event ID is required")
+    @NotNull(message = "event ID is required")
     private Long eventId;
 
     @NotNull(message = "Asset ID is required")

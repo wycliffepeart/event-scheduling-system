@@ -1,4 +1,4 @@
-package org.ess.module.asset.Event;
+package org.ess.module.asset.event;
 
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.subjects.PublishSubject;

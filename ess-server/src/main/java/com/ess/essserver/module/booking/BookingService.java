@@ -33,7 +33,7 @@ public class BookingService {
 
     public BookingResponseDTO createBooking(BookingRequestDTO dto) {
         EventEntity event = eventRepository.findById(dto.getEventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + dto.getEventId()));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + dto.getEventId()));
 
         AssetEntity asset = assetRepository.findById(dto.getAssetId())
                 .orElseThrow(() -> new RuntimeException("Asset not found with ID: " + dto.getAssetId()));
@@ -49,7 +49,7 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + id));
 
         EventEntity event = eventRepository.findById(dto.getEventId())
-                .orElseThrow(() -> new RuntimeException("Event not found with ID: " + dto.getEventId()));
+                .orElseThrow(() -> new RuntimeException("event not found with ID: " + dto.getEventId()));
 
         AssetEntity asset = assetRepository.findById(dto.getAssetId())
                 .orElseThrow(() -> new RuntimeException("Asset not found with ID: " + dto.getAssetId()));

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ess.app.common.FormMode;
-import org.ess.module.asset.Event.AssetEvent;
+import org.ess.module.asset.event.AssetEvent;
 import org.ess.module.asset.model.AssetModel;
 import org.ess.module.asset.service.AssetService;
 import org.jetbrains.annotations.NotNull;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Event Management", description = "APIs for managing events")
+@Tag(name = "event Management", description = "APIs for managing events")
 @RestController
 @RequestMapping("/api/events")
 @RequiredArgsConstructor
