@@ -17,18 +17,21 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
+    // The following methods are the CRUD operations for the Invoice entity
     @Operation(summary = "Get all invoices")
     @GetMapping
     public ResponseEntity<List<InvoiceResponseDTO>> getAllInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoices());
     }
 
+    // The following methods are the CRUD operations for the Invoice entity
     @Operation(summary = "Get invoice by ID")
     @GetMapping("/{id}")
     public ResponseEntity<InvoiceResponseDTO> getInvoiceById(@PathVariable Long id) {
         return ResponseEntity.ok(invoiceService.getInvoiceById(id));
     }
 
+    // The following methods are the CRUD operations for the Invoice entity
     @Operation(summary = "Create a new invoice")
     @PostMapping
     public ResponseEntity<InvoiceResponseDTO> createInvoice(@Valid @RequestBody InvoiceRequestDTO dto) {

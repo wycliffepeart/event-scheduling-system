@@ -27,11 +27,21 @@ public class AssetDeleteConfirmationController implements Initializable {
 
     protected static final Logger logger = LogManager.getLogger(AssetDeleteConfirmationController.class);
 
+    /**
+     * Initializes the controller when the asset delete confirmation window is loaded.
+     * Logs an informational message upon initialization.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
     }
 
+
+    /**
+     * Handles the delete button click event to delete the asset.
+     * Retrieves asset data from the window's user data and calls the asset deletion service.
+     * Upon success, logs the result and closes the window.
+     */
     @FXML
     @SuppressWarnings("unchecked")
     void onClickDeleteAsset(MouseEvent event) {
@@ -55,6 +65,10 @@ public class AssetDeleteConfirmationController implements Initializable {
 
     }
 
+    /**
+     * Handles the cancel button click event to cancel the asset deletion.
+     * Logs the cancellation action and closes the current window.
+     */
     @FXML
     void onClickCancelDeleteAsset(MouseEvent event) {
         logger.info("Delete Asset Cancelled");

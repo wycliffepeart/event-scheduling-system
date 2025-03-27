@@ -27,11 +27,20 @@ public class BookingDeleteConfirmationController implements Initializable {
 
     private final Logger logger = LogManager.getLogger(BookingDeleteConfirmationController.class.getName());
 
+    /**
+     * Initializes the controller when the booking delete confirmation window is loaded.
+     * Logs an informational message upon initialization.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
     }
 
+    /**
+     * Handles the delete button click event to delete the booking.
+     * Retrieves booking data from the window's user data and calls the booking deletion service.
+     * Upon success, logs the result and closes the window.
+     */
     @FXML
     @SuppressWarnings("unchecked")
     void onClickDeleteBooking(MouseEvent event) {
@@ -54,7 +63,9 @@ public class BookingDeleteConfirmationController implements Initializable {
         });
     }
 
-
+    /**
+     * Handles the cancel button click event to close the window.
+     */
     @FXML
     void onClickCancelDeleteBooking(MouseEvent event) {
         logger.info("Delete Booking Cancelled");

@@ -40,6 +40,10 @@ public class AssetTableController extends TabController implements Initializable
 
     private final ObservableList<AssetModel> userModelObservableList = FXCollections.observableArrayList(new ArrayList<>());
 
+    /**
+     * Retrieves asset data from the server and populates the asset table.
+     * Upon success, logs the result.
+     */
     private void get() {
         logger.info("Get");
         assetService.get(new Callback<>() {
@@ -60,11 +64,19 @@ public class AssetTableController extends TabController implements Initializable
         });
     }
 
+    /**
+     * Initializes the controller when the asset table window is loaded.
+     * Logs an informational message upon initialization.
+     */
     @Override
     public void initialize(Tab tab) {
         get();
     }
 
+    /**
+     * Initializes the controller when the asset table window is loaded.
+     * Logs an informational message upon initialization.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
@@ -108,6 +120,10 @@ public class AssetTableController extends TabController implements Initializable
         AssetEvent.subscribe(AssetEvent.Type.DELETE, type -> get());
     }
 
+    /**
+     * Retrieves asset data from the server and populates the asset table.
+     * Upon success, logs the result.
+     */
     private static @NotNull TableColumn<AssetModel, HBox> getAssetActionsTableColumn() {
         TableColumn<AssetModel, HBox> deleteStaff = new TableColumn<>("Actions");
 

@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import org.ess.app.PaymentStatus;
 import org.ess.app.common.FormMode;
 import org.ess.module.bookings.event.BookingEvent;
-import org.ess.module.bookings.model.BookingRequest;
 import org.ess.app.window.View;
 import org.ess.module.bookings.model.BookingResponse;
 import org.ess.module.bookings.service.BookingService;
@@ -54,6 +53,11 @@ public class BookingTableController implements Initializable {
 
     protected static final Logger logger = LogManager.getLogger(BookingTableController.class);
 
+    /**
+     * Initializes the controller when the booking table window is loaded.
+     * Sets up the table columns and populates the booking table.
+     * If no bookings are selected, disables the generate invoice button.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
@@ -75,23 +79,6 @@ public class BookingTableController implements Initializable {
 
         TableColumn<BookingResponse, String> createAtColumn = new TableColumn<>("Create At");
         createAtColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCreatedAt()));
-//
-//        fxBookingTableLayout.setRowFactory(row -> new TableRow<>() {
-//            @Override
-//            protected void updateItem(BookingRequest item, boolean empty) {
-//                super.updateItem(item, empty);
-////                setDisable(true);
-//                if (item == null) {
-////                    setStyle("");
-//                } else {
-////                    if (item.getStatus().equals("PENDING")) {
-////                        setStyle("-fx-background-color: #ff0000;");
-////                    } else {
-////                        setStyle("");
-////                    }
-//                }
-//            }
-//        });
 
         fxBookingTableLayout
                 .getColumns()
@@ -125,6 +112,10 @@ public class BookingTableController implements Initializable {
         BookingEvent.subscribe(BookingEvent.Type.DELETE, event -> requestBookingData());
     }
 
+    /**
+     * Handles the event when the create booking button is clicked.
+     * Opens the booking form window in create mode.
+     */
     @FXML
     void onClickCreateBooking(MouseEvent event) {
         logger.info("Create Booking");
@@ -132,6 +123,11 @@ public class BookingTableController implements Initializable {
         View.bookingFormWindow(Map.of("mode", FormMode.CREATE, "eventModel", getEventModelFromData()));
     }
 
+    /**
+     * Handles the event when the generate invoice button is clicked.
+     * Sends a request to generate an invoice for the selected bookings.
+     * Upon success, logs the result and clears the selected booking list.
+     */
     @FXML
     void onClickGenerateInvoice(MouseEvent event) {
         CreateInvoiceRequest request = CreateInvoiceRequest.builder()
@@ -159,6 +155,10 @@ public class BookingTableController implements Initializable {
 
     }
 
+    /**
+     * Sends a request to retrieve booking data for the event.
+     * Upon success, populates the booking table with the retrieved data.
+     */
     private void requestBookingData() {
         var eventModel = getEventModelFromData();
 
@@ -181,6 +181,10 @@ public class BookingTableController implements Initializable {
         });
     }
 
+    /**
+     * Initializes the controller when the booking table window is loaded.
+     * Logs an informational message upon initialization.
+     */
     private static @NotNull TableColumn<BookingResponse, CheckBox> getCheckBox() {
         TableColumn<BookingResponse, CheckBox> checkboxColumn = new TableColumn<>("Checked");
         checkboxColumn.setCellValueFactory(cellData -> {
@@ -213,6 +217,11 @@ public class BookingTableController implements Initializable {
         return checkboxColumn;
     }
 
+    /**
+     * Retrieves event data from the window's user data.
+     *
+     * @return the event model
+     */
     private static @NotNull TableColumn<BookingResponse, Button> getInvoiceColumn() {
         TableColumn<BookingResponse, Button> deleteColumn = new TableColumn<>("Invoice");
         deleteColumn.setCellValueFactory(cellData -> {
@@ -229,6 +238,11 @@ public class BookingTableController implements Initializable {
         return deleteColumn;
     }
 
+    /**
+     * Retrieves event data from the window's user data.
+     *
+     * @return the event model
+     */
     private static @NotNull TableColumn<BookingResponse, Button> getEditColumn() {
         TableColumn<BookingResponse, Button> editColumn = new TableColumn<>("Edit");
         editColumn.setCellValueFactory(cellData -> {
@@ -247,6 +261,11 @@ public class BookingTableController implements Initializable {
         return editColumn;
     }
 
+    /**
+     * Retrieves event data from the window's user data.
+     *
+     * @return the event model
+     */
     private static @NotNull TableColumn<BookingResponse, Button> getDeleteColumn() {
         TableColumn<BookingResponse, Button> deleteColumn = new TableColumn<>("Delete");
         deleteColumn.setCellValueFactory(cellData -> {
@@ -261,6 +280,11 @@ public class BookingTableController implements Initializable {
         return deleteColumn;
     }
 
+    /**
+     * Retrieves event data from the window's user data.
+     *
+     * @return the event model
+     */
     private EventModel getEventModelFromData() {
         var eventModel = (EventModel) getData().get("eventModel");
 
@@ -269,6 +293,11 @@ public class BookingTableController implements Initializable {
         return eventModel;
     }
 
+    /**
+     * Retrieves the data passed to the window.
+     *
+     * @return the data passed to the window
+     */
     @SuppressWarnings("unchecked")
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();

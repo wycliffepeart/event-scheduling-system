@@ -23,6 +23,7 @@ public class BookingService {
     private final AssetRepository assetRepository;
     private final BookingMapper bookingMapper;
 
+    // Get all bookings
     public List<BookingResponseDTO> getAllBookings(Long eventId, PaymentStatus paymentStatus) {
 
         var event = eventRepository.findById(eventId).get();
@@ -32,12 +33,14 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
+    // Get all bookings
     public BookingResponseDTO getBookingById(Long id) {
         return bookingRepository.findById(id)
                 .map(bookingMapper::toResponseDTO)
                 .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + id));
     }
 
+    // Create a booking
     public BookingResponseDTO createBooking(BookingRequestDTO dto) {
 
         validateBookingDate(dto.getStartDate(), dto.getEndDate());
@@ -56,6 +59,7 @@ public class BookingService {
         return bookingMapper.toResponseDTO(booking);
     }
 
+    // Update a booking
     public BookingResponseDTO updateBooking(Long id, BookingRequestDTO dto) {
 
         validateBookingDate(dto.getStartDate(), dto.getEndDate());
@@ -81,12 +85,14 @@ public class BookingService {
         return bookingMapper.toResponseDTO(booking);
     }
 
+    // Delete a booking
     public void deleteBooking(Long id) {
         BookingEntity booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking not found with ID: " + id));
         bookingRepository.delete(booking);
     }
 
+    // Validate the booking date
     private void validateBookingAsset(AssetEntity asset, LocalDate startDate, LocalDate endDate) {
         List<BookingEntity> bookingEntities = bookingRepository.findAllByAssetAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(asset, startDate, endDate);
 
@@ -94,6 +100,7 @@ public class BookingService {
 
     }
 
+    // Validate the booking date
     private void validateBookingAsset(Long id, AssetEntity asset, LocalDate startDate, LocalDate endDate) {
         List<BookingEntity> bookingEntities = bookingRepository.findAllByIdNotAndAssetAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(id, asset, startDate, endDate);
 
@@ -101,6 +108,7 @@ public class BookingService {
 
     }
 
+    // Validate the booking date
     private void validateBookingDate(LocalDate startDate, LocalDate endDate) {
         // Get the current local time
         LocalDate currentDate = LocalDate.now();

@@ -14,6 +14,7 @@ public class BookingMapper {
     private final AssetMapper assetMapper;
     private final EventMapper eventMapper;
 
+    // The following methods are the CRUD operations for the Booking entity
     public BookingEntity toEntity(BookingRequestDTO dto, EventEntity event, AssetEntity asset) {
         return BookingEntity.builder()
                 .event(event)
@@ -23,6 +24,7 @@ public class BookingMapper {
                 .build();
     }
 
+    // The following methods are the CRUD operations for the Booking entity
     public BookingResponseDTO toResponseDTO(BookingEntity entity) {
         return BookingResponseDTO.builder()
                 .id(entity.getId())

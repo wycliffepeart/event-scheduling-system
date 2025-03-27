@@ -48,6 +48,12 @@ public class BookingFormController implements Initializable {
 
     private final Logger logger = LogManager.getLogger(BookingFormController.class.getName());
 
+    /**
+     * Initializes the controller when the booking form window is loaded.
+     * Sets the asset and date fields to be non-editable.
+     * Retrieves asset data from the server and populates the asset dropdown.
+     * If the form is in edit mode, it populates fields with existing booking details.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
@@ -86,12 +92,19 @@ public class BookingFormController implements Initializable {
         });
     }
 
+    /**
+     * Handles the event when the cancel button is clicked. Closes the form window without saving changes.
+     */
     @FXML
     void onCancelBookingForm(MouseEvent event) {
         logger.info("Cancel Booking Form");
         Platform.runLater(() -> fxRoot.getScene().getWindow().hide());
     }
 
+    /**
+     * Handles the submission of the booking form.
+     * Determines whether to create a new booking or update an existing one based on the form mode.
+     */
     @FXML
     void onSubmitBookingForm(MouseEvent event) {
         logger.info("onSubmitAssetForm");
@@ -103,6 +116,11 @@ public class BookingFormController implements Initializable {
         }
     }
 
+    /**
+     * Determines the form mode based on the data passed to the window.
+     *
+     * @return the form mode
+     */
     private void createBooking() {
         bookingService.post(getBookingModelFromForm(), new Callback<>() {
             @Override
@@ -121,6 +139,11 @@ public class BookingFormController implements Initializable {
         });
     }
 
+    /**
+     * Determines the form mode based on the data passed to the window.
+     *
+     * @return the form mode
+     */
     private void updateBooking() {
         bookingService.put(getBookingModelFromForm().setId(getBookingModelFromData().getId()), new Callback<>() {
             @Override
@@ -139,6 +162,11 @@ public class BookingFormController implements Initializable {
         });
     }
 
+    /**
+     * Determines the form mode based on the data passed to the window.
+     *
+     * @return the form mode
+     */
     private BookingRequest getBookingModelFromForm() {
         logger.info("{} {} {}", fxBookingAsset.getValue(), fxBookingStartDate.getValue(), fxBookingEndDate.getValue());
         BookingRequest bookingModel = new BookingRequest();
@@ -149,6 +177,11 @@ public class BookingFormController implements Initializable {
         return bookingModel;
     }
 
+    /**
+     * Determines the form mode based on the data passed to the window.
+     *
+     * @return the form mode
+     */
     private FormMode getFormMode() {
 
         if (getData().get("mode").toString().equals(FormMode.EDIT.name())) {
@@ -158,6 +191,11 @@ public class BookingFormController implements Initializable {
         return FormMode.CREATE;
     }
 
+    /**
+     * Retrieves booking data from the window's user data.
+     *
+     * @return the booking model
+     */
     private BookingResponse getBookingModelFromData() {
         var bookingModel = (BookingResponse) getData().get("bookingModel");
 
@@ -166,6 +204,11 @@ public class BookingFormController implements Initializable {
         return bookingModel;
     }
 
+    /**
+     * Retrieves the event model object from the data passed to the window.
+     *
+     * @return the event model object
+     */
     @SuppressWarnings("unchecked")
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();

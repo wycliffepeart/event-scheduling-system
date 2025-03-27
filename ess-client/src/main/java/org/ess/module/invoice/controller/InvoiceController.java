@@ -54,6 +54,10 @@ public class InvoiceController implements Initializable {
 
     private final ObservableList<InvoiceTableData> userModelObservableList = FXCollections.observableArrayList(new ArrayList<>());
 
+    /**
+     * Initializes the controller when the invoice window is loaded.
+     * Sets up the table columns and populates the invoice table.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -62,9 +66,6 @@ public class InvoiceController implements Initializable {
 
         TableColumn<InvoiceTableData, String> itemEndDateColumn = new TableColumn<>("End Date");
         itemEndDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDate()));
-
-//        TableColumn<InvoiceTableData, Double> itemQuantityColumn = new TableColumn<>("Quantity");
-//        itemQuantityColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCost()));
 
         TableColumn<InvoiceTableData, Double> itemPriceColumn = new TableColumn<>("Price");
         itemPriceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPrice()));
@@ -80,6 +81,10 @@ public class InvoiceController implements Initializable {
         fxInvoiceTable.setItems(userModelObservableList);
     }
 
+    /**
+     * Retrieves invoice data from the server and populates the invoice table.
+     * Upon success, logs the result.
+     */
     void requestEvents() {
         var bookingModel = getBookingFromData();
         invoiceService.get(bookingModel.getInvoiceId(), new Callback<>() {
@@ -115,6 +120,11 @@ public class InvoiceController implements Initializable {
         });
     }
 
+    /**
+     * Retrieves booking data from the form data.
+     *
+     * @return the booking model
+     */
     private BookingResponse getBookingFromData() {
         var bookingModel = (BookingResponse) getData().get("bookingModel");
 
@@ -123,6 +133,11 @@ public class InvoiceController implements Initializable {
         return bookingModel;
     }
 
+    /**
+     * Retrieves the data passed to the window.
+     *
+     * @return the data
+     */
     @SuppressWarnings("unchecked")
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();

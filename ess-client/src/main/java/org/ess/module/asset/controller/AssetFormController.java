@@ -54,6 +54,10 @@ public class AssetFormController implements Initializable {
 
     protected static final Logger logger = LogManager.getLogger(AssetFormController.class);
 
+    /**
+     * Initializes the form by setting up default values for fields and loading required data.
+     * If the form is in edit mode, it populates fields with existing asset details.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
@@ -76,12 +80,19 @@ public class AssetFormController implements Initializable {
         });
     }
 
+    /**
+     * Handles the event when the cancel button is clicked. Closes the form window without saving changes.
+     */
     @FXML
     void onCancelAssetForm(MouseEvent event) {
         logger.info("Cancel Asset Form");
         Platform.runLater(() -> fxRoot.getScene().getWindow().hide());
     }
 
+    /**
+     * Handles the submission of the asset form.
+     * Determines whether to create a new asset or update an existing one based on the form mode.
+     */
     @FXML
     void onSubmitAssetForm(MouseEvent event) {
         logger.info("onSubmitAssetForm");
@@ -93,6 +104,9 @@ public class AssetFormController implements Initializable {
         }
     }
 
+    /**
+     * Fetches and populates the dropdown for asset categories from the backend service.
+     */
     private void loadAssetCategory() {
         dropdownService.get("ASSET_CATEGORY", new Callback<>() {
             @Override
@@ -111,6 +125,9 @@ public class AssetFormController implements Initializable {
         });
     }
 
+    /**
+     * Sends a request to update an existing asset with the data from the form.
+     */
     private void updateAsset() {
         assetService.put(getAssetModel().setId(getAssetModelFromData().getId()), new Callback<>() {
             @Override
@@ -129,6 +146,9 @@ public class AssetFormController implements Initializable {
         AssetEvent.subject.onNext(AssetEvent.Type.CREATE);
     }
 
+    /**
+     * Sends a request to create a new asset with the data from the form.
+     */
     private void createAsset() {
         assetService.post(getAssetModel(), new Callback<>() {
             @Override
@@ -147,6 +167,11 @@ public class AssetFormController implements Initializable {
         AssetEvent.subject.onNext(AssetEvent.Type.CREATE);
     }
 
+    /**
+     * Creates an asset model object from the form data.
+     *
+     * @return the asset model object
+     */
     private AssetModel getAssetModel() {
         AssetModel assetModel = new AssetModel();
         assetModel.setName(fxAssetName.getText());
@@ -158,6 +183,11 @@ public class AssetFormController implements Initializable {
         return assetModel;
     }
 
+    /**
+     * Determines the form mode based on the data passed to the form.
+     *
+     * @return the form mode
+     */
     private FormMode getAssetFormMode() {
 
         if (getData().get("mode").toString().equals(FormMode.EDIT.name())) {
@@ -167,6 +197,11 @@ public class AssetFormController implements Initializable {
         return FormMode.CREATE;
     }
 
+    /**
+     * Retrieves the asset model object from the data passed to the form.
+     *
+     * @return the asset model object
+     */
     private AssetModel getAssetModelFromData() {
         var assetModel = (AssetModel) getData().get("assetModel");
 
@@ -175,6 +210,11 @@ public class AssetFormController implements Initializable {
         return assetModel;
     }
 
+    /**
+     * Retrieves the data passed to the form.
+     *
+     * @return the data passed to the form
+     */
     @SuppressWarnings("unchecked")
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();

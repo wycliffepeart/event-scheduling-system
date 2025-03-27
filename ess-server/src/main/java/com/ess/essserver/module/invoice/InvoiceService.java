@@ -23,12 +23,14 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final BookingRepository bookingRepository;
 
+    // The following methods are the CRUD operations for the Invoice entity
     public List<InvoiceResponseDTO> getAllInvoices() {
         return invoiceRepository.findAll().stream()
                 .map(invoiceMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
+    // The following methods are the CRUD operations for the Invoice entity
     public InvoiceResponseDTO getInvoiceById(Long id) {
 
         InvoiceEntity invoice = invoiceRepository.findById(id)
@@ -37,6 +39,7 @@ public class InvoiceService {
         return invoiceMapper.toResponseDTO(invoice);
     }
 
+    // The following methods are the CRUD operations for the Invoice entity
     public InvoiceResponseDTO createInvoice(InvoiceRequestDTO dto) {
         EventEntity event = eventRepository.findById(dto.getEventId())
                 .orElseThrow(() -> new RuntimeException("event not found with ID: " + dto.getEventId()));

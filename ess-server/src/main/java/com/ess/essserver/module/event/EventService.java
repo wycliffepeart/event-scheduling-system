@@ -15,18 +15,21 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
+    // The following methods are the CRUD operations for the Event entity
     public List<EventResponseDTO> getAllEvents() {
         return eventRepository.findAll().stream()
                 .map(eventMapper::toEventResponseDTO)
                 .collect(Collectors.toList());
     }
 
+    // The following methods are the CRUD operations for the Event entity
     public EventResponseDTO getEventById(Long id) {
         return eventRepository.findById(id)
                 .map(eventMapper::toEventResponseDTO)
                 .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));
     }
 
+    // The following methods are the CRUD operations for the Event entity
     public EventResponseDTO createEvent(EventRequestDTO eventRequestDTO) {
         EventEntity event = EventEntity.builder()
                 .name(eventRequestDTO.getName())
@@ -40,6 +43,7 @@ public class EventService {
         return eventMapper.toEventResponseDTO(event);
     }
 
+    // The following methods are the CRUD operations for the Event entity
     public EventResponseDTO updateEvent(Long id, EventRequestDTO eventRequestDTO) {
         EventEntity event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));
@@ -55,6 +59,7 @@ public class EventService {
         return eventMapper.toEventResponseDTO(event);
     }
 
+    // The following methods are the CRUD operations for the Event entity
     public void deleteEvent(Long id) {
         EventEntity event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("event not found with ID: " + id));

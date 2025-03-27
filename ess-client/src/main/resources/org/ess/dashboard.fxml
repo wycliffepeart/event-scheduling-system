@@ -60,7 +60,7 @@
                                 <Insets />
                             </opaqueInsets>
                         </HBox>
-                        <Button alignment="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="26.0" prefWidth="111.0" text="Logout">
+                        <Button alignment="CENTER" ellipsisString="" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="26.0" prefWidth="111.0" text="Logout">
                             <font>
                                 <Font name="System Bold Italic" size="13.0" />
                             </font>

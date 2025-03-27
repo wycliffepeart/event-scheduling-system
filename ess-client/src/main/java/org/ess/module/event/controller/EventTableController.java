@@ -42,11 +42,20 @@ public class EventTableController extends TabController implements Initializable
 
     protected static final Logger logger = LogManager.getLogger(EventTableController.class);
 
+    /**
+     * Retrieves event data from the server and populates the event table.
+     * Upon success, logs the result.
+     */
     @Override
     public void initialize(Tab tab) {
         requestEvents();
     }
 
+    /**
+     * Initializes the controller when the event table window is loaded.
+     * Sets up the table columns and populates the event table.
+     * Subscribes to event updates to refresh the table upon changes.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
@@ -97,6 +106,10 @@ public class EventTableController extends TabController implements Initializable
         EventEvent.subscribe(EventEvent.Type.DELETE, type -> requestEvents());
     }
 
+    /**
+     * Retrieves event data from the server and populates the event table.
+     * Upon success, logs the result.
+     */
     void requestEvents() {
         eventService.get(new Callback<>() {
             @Override
@@ -114,6 +127,11 @@ public class EventTableController extends TabController implements Initializable
         });
     }
 
+    /**
+     * Retrieves the event model from the form fields.
+     *
+     * @return the event model
+     */
     private @NotNull TableColumn<EventModel, Button> getBookingButton() {
         TableColumn<EventModel, Button> bookingColumn = new TableColumn<>("Booking");
         bookingColumn.setCellValueFactory(cellData -> {
@@ -125,6 +143,11 @@ public class EventTableController extends TabController implements Initializable
         return bookingColumn;
     }
 
+    /**
+     * Retrieves the event model from the form fields.
+     *
+     * @return the event model
+     */
     private @NotNull TableColumn<EventModel, Button> getEditButton() {
         TableColumn<EventModel, Button> editColumn = new TableColumn<>("Edit");
         editColumn.setCellValueFactory(cellData -> {
@@ -136,6 +159,11 @@ public class EventTableController extends TabController implements Initializable
         return editColumn;
     }
 
+    /**
+     * Retrieves the event model from the form fields.
+     *
+     * @return the event model
+     */
     private @NotNull TableColumn<EventModel, Button> getDeleteButton() {
         TableColumn<EventModel, Button> deleteColumn = new TableColumn<>("Delete");
         deleteColumn.setCellValueFactory(cellData -> {
@@ -147,6 +175,11 @@ public class EventTableController extends TabController implements Initializable
         return deleteColumn;
     }
 
+    /**
+     * Retrieves the event model from the form fields.
+     *
+     * @return the event model
+     */
     private static @NotNull TableColumn<EventModel, HBox> getAssetActionsTableColumn() {
         TableColumn<EventModel, HBox> deleteStaff = new TableColumn<>("Actions");
 

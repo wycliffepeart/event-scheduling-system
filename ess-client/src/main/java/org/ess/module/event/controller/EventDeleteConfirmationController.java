@@ -29,11 +29,20 @@ public class EventDeleteConfirmationController implements Initializable {
 
     protected static final Logger logger = LogManager.getLogger(EventDeleteConfirmationController.class);
 
+    /**
+     * Initializes the controller when the event delete confirmation window is loaded.
+     * Logs an informational message upon initialization.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
     }
 
+    /**
+     * Handles the delete button click event to delete the event.
+     * Retrieves event data from the window's user data and calls the event deletion service.
+     * Upon success, logs the result and closes the window.
+     */
     @FXML
     @SuppressWarnings("unchecked")
     void onClickDeleteEvent(MouseEvent event) {
@@ -57,6 +66,9 @@ public class EventDeleteConfirmationController implements Initializable {
 
     }
 
+    /**
+     * Handles the cancel button click event to cancel the event deletion.
+     */
     @FXML
     void onClickCancelDeleteEvent(MouseEvent event) {
         logger.info("Delete Event Cancelled");

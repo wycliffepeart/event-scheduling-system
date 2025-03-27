@@ -53,6 +53,12 @@ public class EventFormController implements Initializable {
 
     private static final Logger logger = LogManager.getLogger(EventFormController.class.getName());
 
+    /**
+     * Initializes the controller when the event form window is loaded.
+     * Sets the start and end date fields to be non-editable.
+     * Populates the status dropdown with active and inactive options.
+     * If the form is in edit mode, it populates fields with existing event details.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
@@ -72,12 +78,20 @@ public class EventFormController implements Initializable {
         });
     }
 
+    /**
+     * Handles the cancel button click event to close the event form window.
+     * Closes the window upon click.
+     */
     @FXML
     void onCancelEventForm(MouseEvent event) {
         logger.info("onCancelEventForm");
         Platform.runLater(() -> fxRoot.getScene().getWindow().hide());
     }
 
+    /**
+     * Handles the submit button click event to create or update the event.
+     * Calls the create or update event method based on the form mode.
+     */
     @FXML
     void onSubmitEventForm(MouseEvent event) {
         logger.info("onSubmitEventForm");
@@ -89,6 +103,13 @@ public class EventFormController implements Initializable {
         }
     }
 
+    /**
+     * Retrieves the form mode from the window's user data.
+     * If the form mode is edit, it returns the edit mode.
+     * Otherwise, it returns the create mode.
+     *
+     * @return the form mode
+     */
     private void updateEvent() {
         eventService.put(getEventModelFromForm().setId(getEventModelFromData().getId()), new Callback<>() {
             @Override
@@ -108,6 +129,11 @@ public class EventFormController implements Initializable {
         });
     }
 
+    /**
+     * Creates a new event with the data from the form.
+     * Calls the event service to post the new event.
+     * Upon success, logs the result and closes the window.
+     */
     private void createEvent() {
         eventService.post(getEventModelFromForm(), new Callback<>() {
             @Override
@@ -127,6 +153,11 @@ public class EventFormController implements Initializable {
         });
     }
 
+    /**
+     * Retrieves the event model from the form fields.
+     *
+     * @return the event model
+     */
     private EventModel getEventModelFromForm() {
         EventModel eventModel = new EventModel();
         eventModel.setName(fxEventName.getText());
@@ -140,6 +171,13 @@ public class EventFormController implements Initializable {
         return eventModel;
     }
 
+    /**
+     * Retrieves the form mode from the window's user data.
+     * If the form mode is edit, it returns the edit mode.
+     * Otherwise, it returns the create mode.
+     *
+     * @return the form mode
+     */
     private FormMode getEventFormMode() {
 
         if (getData().get("mode").toString().equals(FormMode.EDIT.name())) {
@@ -149,6 +187,11 @@ public class EventFormController implements Initializable {
         return FormMode.CREATE;
     }
 
+    /**
+     * Retrieves the event model object from the data passed to the form.
+     *
+     * @return the event model object
+     */
     private EventModel getEventModelFromData() {
         var eventModel = (EventModel) getData().get("eventModel");
 
@@ -157,6 +200,11 @@ public class EventFormController implements Initializable {
         return eventModel;
     }
 
+    /**
+     * Retrieves the data passed to the form.
+     *
+     * @return the data passed to the form
+     */
     @SuppressWarnings("unchecked")
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();

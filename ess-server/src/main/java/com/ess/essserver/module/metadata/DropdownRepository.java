@@ -14,6 +14,7 @@ public class DropdownRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
+    // The following methods are the CRUD operations for the Dropdown entity
     public List<Dropdown> getDropdowns(String dropdownType) {
         String sql = "SELECT * FROM dropdowns WHERE type = ?";
         List<Map<String, Object>> dropdowns = jdbcTemplate.queryForList(sql, dropdownType);

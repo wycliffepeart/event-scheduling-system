@@ -17,6 +17,7 @@ public class DropdownController {
 
     private final DropdownRepository repository;
 
+    // The following methods are the CRUD operations for the Dropdown entity
     @GetMapping
     List<Dropdown> getDropdowns(@RequestParam(required = false) String type) {
         return repository.getDropdowns(type);
