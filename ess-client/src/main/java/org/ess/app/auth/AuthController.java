@@ -84,7 +84,7 @@ public class AuthController implements Initializable {
             public void onResponse(@NotNull Call<Map<String, String>> call, @NotNull Response<Map<String, String>> response) {
                 Data.token = Optional.ofNullable(response.body()).orElse(new HashMap<>()).get("token");
                 logger.info("Success: {}", response.body());
-                Platform.runLater(() -> Navigate.to("dashboard.fxml"));
+                Platform.runLater(() -> Navigate.root("dashboard.fxml", 800, 600));
             }
 
             @Override

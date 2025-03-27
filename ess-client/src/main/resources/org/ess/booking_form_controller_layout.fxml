@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,18 +17,6 @@
             <content>
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16.0">
                     <children>
-                        <VBox spacing="10.0">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                                <TextField fx:id="fxAssetName" />
-                            </children>
-                        </VBox>
-                        <VBox maxWidth="1.7976931348623157E308" spacing="10.0">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" />
-                                <ComboBox fx:id="fxBookingEvent" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-                            </children>
-                        </VBox>
                         <VBox layoutX="26.0" layoutY="94.0" maxWidth="1.7976931348623157E308" spacing="10.0">
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Asset" />

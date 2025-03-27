@@ -70,6 +70,19 @@ public class Navigate {
     }
 
     /**
+     * Open a new window with the specified layout.
+     *
+     * @param layout The name of the layout file to load
+     */
+    public static void root(String layout, double width, double height) {
+        Stage stage = getParentStage();
+        stage.getScene().setRoot(FXMLInflater.inflateParent(layout));
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.show();
+    }
+
+    /**
      * Open a new window with the specified name and layout.
      *
      * @param name   The name of the window
@@ -78,7 +91,7 @@ public class Navigate {
     public static void toWindow(String name, String layout) {
         Parent parent = FXMLInflater.inflateParent(layout);
         Stage stage = new Stage();
-        stage.initOwner(getParentStage());
+        stage.initOwner(Stage.getWindows().getLast());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(name);
         stage.setScene(new Scene(parent, 600, 600));
@@ -89,7 +102,7 @@ public class Navigate {
     public static void toWindow(String name, String layout, Map<String, Object> data) {
         Parent parent = FXMLInflater.inflateParent(layout);
         Stage stage = new Stage();
-        stage.initOwner(getParentStage());
+        stage.initOwner(Stage.getWindows().getLast());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(name);
         stage.setUserData(data);
@@ -101,7 +114,7 @@ public class Navigate {
     public static void toWindow(String name, String layout, int width, int height) {
         Parent parent = FXMLInflater.inflateParent(layout);
         Stage stage = new Stage();
-        stage.initOwner(getParentStage());
+        stage.initOwner(Stage.getWindows().getLast());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(name);
         stage.setScene(new Scene(parent, width, height));
@@ -112,7 +125,7 @@ public class Navigate {
     public static void toWindow(String name, String layout, Map<String, Object> userData, int width, int height) {
         Parent parent = FXMLInflater.inflateParent(layout);
         Stage stage = new Stage();
-        stage.initOwner(getParentStage());
+        stage.initOwner(Stage.getWindows().getLast());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(name);
         stage.setUserData(userData);

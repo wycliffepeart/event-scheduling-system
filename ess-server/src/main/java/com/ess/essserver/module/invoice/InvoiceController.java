@@ -34,19 +34,4 @@ public class InvoiceController {
     public ResponseEntity<InvoiceResponseDTO> createInvoice(@Valid @RequestBody InvoiceRequestDTO dto) {
         return ResponseEntity.ok(invoiceService.createInvoice(dto));
     }
-
-    @Operation(summary = "Update an existing invoice")
-    @PutMapping("/{id}")
-    public ResponseEntity<InvoiceResponseDTO> updateInvoice(
-            @PathVariable Long id,
-            @Valid @RequestBody InvoiceRequestDTO dto) {
-        return ResponseEntity.ok(invoiceService.updateInvoice(id, dto));
-    }
-
-    @Operation(summary = "Delete an invoice by ID")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
-        invoiceService.deleteInvoice(id);
-        return ResponseEntity.noContent().build();
-    }
 }

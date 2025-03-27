@@ -71,38 +71,6 @@
         </VBox>
         <TabPane fx:id="fxDashabordTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="55.0" VBox.vgrow="ALWAYS">
             <tabs>
-                <Tab fx:id="fxUserTab" text="User">
-                    <content>
-                        <VBox>
-                            <children>
-                                <HBox alignment="CENTER" style="-fx-padding: 10;">
-                                    <children>
-                                        <HBox alignment="CENTER_LEFT" prefWidth="407.0" style="-fx-padding: 0;" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users Management">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Text>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                        <Button alignment="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #0d6efd; -fx-border-color: #0d6efd; -fx-border-radius: 10;" text="Create User" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold Italic" size="13.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                                <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                                    <fx:include source="user_table_controller_layout.fxml" />
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
                 <Tab fx:id="fxAssetTab" text="Asset">
                     <content>
                         <VBox>
@@ -162,72 +130,6 @@
                                 </HBox>
                                 <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                                     <fx:include source="event_table_controller_layout.fxml" />
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab fx:id="fxBookingTab" text="Bookings">
-                    <content>
-                        <VBox>
-                            <children>
-                                <HBox alignment="CENTER" style="-fx-padding: 10;">
-                                    <children>
-                                        <HBox alignment="CENTER_LEFT" prefWidth="407.0" style="-fx-padding: 0;" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bookings Management">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Text>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                        <Button alignment="CENTER" ellipsisString="" mnemonicParsing="false" onMouseClicked="#onClickCreateBooking" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #0d6efd; -fx-border-color: #0d6efd; -fx-border-radius: 10;" text="Create Bookings" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold Italic" size="13.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                                <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                                    <fx:include source="booking_table_controller_layout.fxml" />
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab fx:id="fxIInvoiceTab" text="Invoice">
-                    <content>
-                        <VBox>
-                            <children>
-                                <HBox alignment="CENTER" style="-fx-padding: 10;">
-                                    <children>
-                                        <HBox alignment="CENTER_LEFT" prefWidth="407.0" style="-fx-padding: 0;" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice Management">
-                                                    <font>
-                                                        <Font name="System Bold" size="18.0" />
-                                                    </font>
-                                                </Text>
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                        <Button alignment="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #0d6efd; -fx-border-color: #0d6efd; -fx-border-radius: 10;" text="Generate Invoice" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold Italic" size="13.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                                <HBox VBox.vgrow="ALWAYS">
-                                    <children>
-                                        <TableView fx:id="tableView1111" fixedCellSize="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="531.0" prefWidth="239.0" HBox.hgrow="ALWAYS" />
-                                    </children>
                                 </HBox>
                             </children>
                         </VBox>

@@ -1,5 +1,6 @@
 package com.ess.essserver.module.booking;
 
+import com.ess.essserver.app.PaymentStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,8 +24,11 @@ public class BookingController {
 
     @Operation(summary = "Get all bookings")
     @GetMapping
-    public ResponseEntity<List<BookingResponseDTO>> getAllBookings() {
-        return ResponseEntity.ok(bookingService.getAllBookings());
+    public ResponseEntity<List<BookingResponseDTO>> getAllBookings(
+            @RequestParam(required = false) Long eventId,
+            @RequestParam(required = false) PaymentStatus paymentStatus
+    ) {
+        return ResponseEntity.ok(bookingService.getAllBookings(eventId, paymentStatus));
     }
 
     @Operation(summary = "Get booking by ID")

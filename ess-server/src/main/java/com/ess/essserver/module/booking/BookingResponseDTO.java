@@ -1,5 +1,8 @@
 package com.ess.essserver.module.booking;
 
+import com.ess.essserver.app.PaymentStatus;
+import com.ess.essserver.module.asset.AssetResponseDTO;
+import com.ess.essserver.module.event.EventResponseDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,12 +14,11 @@ import java.time.LocalDateTime;
 public class BookingResponseDTO {
 
     private Long id;
-    private Long eventId;
-    private Long assetId;
-    private String eventName;
-    private String assetName;
     private LocalDate startDate;
     private LocalDate endDate;
+    private PaymentStatus paymentStatus;
+    private EventResponseDTO event;
+    private AssetResponseDTO asset;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

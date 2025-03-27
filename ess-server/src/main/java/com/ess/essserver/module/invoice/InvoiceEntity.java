@@ -4,8 +4,10 @@ import com.ess.essserver.module.booking.BookingEntity;
 import com.ess.essserver.module.event.EventEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,9 +25,8 @@ public class InvoiceEntity {
     @JoinColumn(name = "event_id", nullable = false)
     private EventEntity event;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "booking_id", nullable = false)
-    private BookingEntity booking;
+    @OneToMany
+    private List<BookingEntity> bookings;
 
     @Column(nullable = false)
     private BigDecimal amount;

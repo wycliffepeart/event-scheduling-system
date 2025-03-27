@@ -8,7 +8,6 @@ import java.util.Map;
 
 public interface AuthRepository {
 
-
     @POST("/login")
     Call<Map<String, String>> post(@Query("username") String username, @Query("password") String password);
 }

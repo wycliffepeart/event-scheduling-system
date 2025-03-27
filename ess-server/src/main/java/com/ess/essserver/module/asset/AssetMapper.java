@@ -8,6 +8,7 @@ public class AssetMapper {
     public AssetEntity toEntity(AssetRequestDTO dto) {
         return AssetEntity.builder()
                 .name(dto.getName())
+                .price(dto.getPrice())
                 .category(dto.getCategory())
                 .condition(dto.getCondition())
                 .quantity(dto.getQuantity())
@@ -19,6 +20,7 @@ public class AssetMapper {
         return AssetResponseDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .price(entity.getPrice())
                 .category(entity.getCategory())
                 .condition(entity.getCondition())
                 .quantity(entity.getQuantity())
