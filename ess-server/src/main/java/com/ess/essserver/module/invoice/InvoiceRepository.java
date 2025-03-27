@@ -13,5 +13,7 @@ import java.util.Optional;
 public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long> {
     List<InvoiceEntity> findAllByEvent(EventEntity event);
 
+    Optional<InvoiceEntity> findByEventAndId(EventEntity event, Long id);
+
     Optional<InvoiceEntity> findByEventAndBookingsIn(EventEntity event, Collection<List<BookingEntity>> bookings);
 }

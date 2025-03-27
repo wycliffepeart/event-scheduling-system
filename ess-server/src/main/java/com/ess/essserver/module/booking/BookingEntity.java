@@ -29,8 +29,14 @@ public class BookingEntity {
     @JoinColumn(name = "asset_id", nullable = false)
     private AssetEntity asset;
 
+    @Column(nullable = true)
+    private Long invoiceId;
+
+    @Column(nullable = true)
+    private double total;
+
     // Price at booking
-    @Column(nullable = false)
+    @Column(nullable = true)
     private double price;
 
     @Column(nullable = false)

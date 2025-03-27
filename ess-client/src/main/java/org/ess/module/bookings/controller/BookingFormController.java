@@ -54,6 +54,9 @@ public class BookingFormController implements Initializable {
 
         Platform.runLater(() -> {
 
+            fxBookingStartDate.setEditable(false);
+            fxBookingEndDate.setEditable(false);
+
             assetService.get(new Callback<>() {
                 @Override
                 public void onResponse(@NotNull Call<List<AssetModel>> call, @NotNull Response<List<AssetModel>> response) {

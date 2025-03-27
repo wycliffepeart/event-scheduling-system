@@ -11,6 +11,7 @@ import java.util.Map;
 public class Data {
 
     public static User user;
+    public static String role;
     public static String token;
 
     // List of parishes in Jamaica

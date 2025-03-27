@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ess.app.common.Data;
 import org.ess.app.common.TabType;
 
 import java.util.Objects;
@@ -19,7 +20,8 @@ public abstract class TabController implements ChangeListener<Tab>, Runnable {
 
     protected TabType tabType;
 
-    public TabController() {}
+    public TabController() {
+    }
 
     public TabController(TabType tabType) {
         this.tabType = tabType;
@@ -38,6 +40,10 @@ public abstract class TabController implements ChangeListener<Tab>, Runnable {
     @Override
     public void run() {
         logger.info("Initialize: TabId {}", tabType.value());
+
+        if (Data.role.equals("ROLE_USER")) {
+            Stage.getWindows().getFirst().getScene().lookup("#fxAssetTab").setDisable(true);
+        }
 
         ((TabPane) Stage.getWindows().getFirst().getScene().lookup("#fxDashabordTabPane")).getSelectionModel().selectedItemProperty().addListener(this);
     }

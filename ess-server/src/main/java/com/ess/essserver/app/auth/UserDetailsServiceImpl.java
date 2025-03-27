@@ -30,6 +30,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .build();
         }
 
+        if ("admin".equals(username)) {
+            return User.builder()
+                    .username(username)
+                    .password(passwordEncoder.encode("1")) // {noop} means no password encoding
+                    .roles("ADMIN") // Assigning the role "USER"
+                    .build();
+        }
+
         throw new UsernameNotFoundException("User not found with username: " + username);
     }
 }

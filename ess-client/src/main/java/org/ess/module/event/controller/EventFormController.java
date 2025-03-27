@@ -56,7 +56,8 @@ public class EventFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-
+            fxEventStartDate.setEditable(false);
+            fxEventEndDate.setEditable(false);
             fxEventStatus.getItems().addAll("Active", "Inactive");
 
             if (getEventFormMode().equals(FormMode.EDIT)) {

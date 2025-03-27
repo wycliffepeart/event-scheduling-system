@@ -61,17 +61,20 @@ public class InvoiceController implements Initializable {
         itemStartDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
 
         TableColumn<InvoiceTableData, String> itemEndDateColumn = new TableColumn<>("End Date");
-        itemEndDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
+        itemEndDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEndDate()));
 
-        TableColumn<InvoiceTableData, Double> itemQuantityColumn = new TableColumn<>("Quantity");
-        itemQuantityColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCost()));
+//        TableColumn<InvoiceTableData, Double> itemQuantityColumn = new TableColumn<>("Quantity");
+//        itemQuantityColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCost()));
 
         TableColumn<InvoiceTableData, Double> itemPriceColumn = new TableColumn<>("Price");
-        itemPriceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCost()));
+        itemPriceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPrice()));
+
+        TableColumn<InvoiceTableData, Double> itemTotalColumn = new TableColumn<>("Total");
+        itemTotalColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTotal()));
 
         fxInvoiceTable
                 .getColumns()
-                .addAll(itemStartDateColumn, itemEndDateColumn, itemQuantityColumn, itemPriceColumn);
+                .addAll(itemStartDateColumn, itemEndDateColumn, itemPriceColumn, itemTotalColumn);
 
         Platform.runLater(this::requestEvents);
         fxInvoiceTable.setItems(userModelObservableList);
@@ -79,7 +82,7 @@ public class InvoiceController implements Initializable {
 
     void requestEvents() {
         var bookingModel = getBookingFromData();
-        invoiceService.get(1, new Callback<>() {
+        invoiceService.get(bookingModel.getInvoiceId(), new Callback<>() {
             @Override
             public void onResponse(@NotNull Call<CreateInvoiceResponse> call, @NotNull Response<CreateInvoiceResponse> response) {
                 logger.info("Get Success {} {}", response.code(), response.message());
@@ -93,6 +96,8 @@ public class InvoiceController implements Initializable {
                     userModelObservableList.addAll(response.body().getBookings().stream().map(item ->
                             InvoiceTableData
                                     .builder()
+                                    .price(item.getPrice())
+                                    .total(item.getTotal())
                                     .name(item.getEvent().getName())
                                     .startDate(item.getStartDate())
                                     .endDate(item.getEndDate())

@@ -81,11 +81,10 @@ public class EventTableController extends TabController implements Initializable
                         usernameColumn,
                         firstNameColumn,
                         lastNameColumn,
-                        dobColumn,
+//                        dobColumn,
                         updateAtColumn,
                         createAtColumn,
                         getBookingButton(),
-                        getInvoiceButton(),
                         getEditButton(),
                         getDeleteButton()
                 );
@@ -124,17 +123,6 @@ public class EventTableController extends TabController implements Initializable
         });
 
         return bookingColumn;
-    }
-
-    private @NotNull TableColumn<EventModel, Button> getInvoiceButton() {
-        TableColumn<EventModel, Button> invoiceColumn = new TableColumn<>("Invoice");
-        invoiceColumn.setCellValueFactory(cellData -> {
-            var button = new Button("Invoice");
-            button.setOnMouseClicked(event -> View.eventFormWindow(Map.of("eventModel", cellData.getValue())));
-            return new SimpleObjectProperty<>(button);
-        });
-
-        return invoiceColumn;
     }
 
     private @NotNull TableColumn<EventModel, Button> getEditButton() {

@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.ess.app.common.FormMode;
+import org.ess.app.repository.DropdownDTO;
+import org.ess.app.repository.DropdownService;
 import org.ess.module.asset.event.AssetEvent;
 import org.ess.module.asset.model.AssetModel;
 import org.ess.module.asset.service.AssetService;
@@ -20,6 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -47,6 +50,7 @@ public class AssetFormController implements Initializable {
     protected TextField fxAssetPrice;
 
     private final AssetService assetService = new AssetService();
+    private final DropdownService dropdownService = new DropdownService();
 
     protected static final Logger logger = LogManager.getLogger(AssetFormController.class);
 
@@ -54,11 +58,12 @@ public class AssetFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
         fxAssetQuantity.getItems().addAll(1, 2, 3, 4, 5);
-        fxAssetCategory.getItems().addAll("Electronics", "Furniture", "Stationary", "Others");
+
         fxAssetStatus.getItems().addAll("Available", "Not Available");
         fxAssetCondition.getItems().addAll("New", "Old");
 
         Platform.runLater(() -> {
+            loadAssetCategory();
             if (getAssetFormMode().equals(FormMode.EDIT)) {
                 AssetModel assetModel = getAssetModelFromData();
                 fxAssetName.setText(assetModel.getName());
@@ -86,6 +91,24 @@ public class AssetFormController implements Initializable {
         } else {
             updateAsset();
         }
+    }
+
+    private void loadAssetCategory() {
+        dropdownService.get("ASSET_CATEGORY", new Callback<>() {
+            @Override
+            public void onResponse(@NotNull Call<List<DropdownDTO>> call, @NotNull Response<List<DropdownDTO>> response) {
+                logger.info("Asset Category Dropdown Success {} {}", response.code(), response.message());
+
+                if (response.isSuccessful() && response.body() != null) {
+                    fxAssetCategory.getItems().addAll(response.body().stream().map(dropdownDTO -> dropdownDTO.value).toList());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<DropdownDTO>> call, @NotNull Throwable throwable) {
+
+            }
+        });
     }
 
     private void updateAsset() {

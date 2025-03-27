@@ -48,6 +48,7 @@ module org.ess {
     opens org.ess.module.bookings.model to com.google.gson, javafx.fxml;
     opens org.ess.module.invoice.controller to com.google.gson, javafx.fxml;
     opens org.ess.module.invoice.request to com.google.gson;
+    opens org.ess.app.repository to com.google.gson;
     opens org.ess.app to com.google.gson, javafx.fxml;
     exports org.ess.app.auth;
     opens org.ess.app.auth to com.google.gson, javafx.fxml, lombok;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,10 @@ public class InvoiceService {
     }
 
     public InvoiceResponseDTO getInvoiceById(Long id) {
+
         InvoiceEntity invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with ID: " + id));
+
         return invoiceMapper.toResponseDTO(invoice);
     }
 
@@ -42,13 +45,23 @@ public class InvoiceService {
 
         if (bookings.isEmpty()) throw new RuntimeException("event not found with ID: " + dto.getEventId());
 
-        var total = bookings.stream().mapToDouble(booking -> booking.getAsset().getPrice()).sum();
+        var total = bookings.stream().mapToDouble(booking -> {
+            long daysBetween = ChronoUnit.DAYS.between(booking.getStartTime(), booking.getEndTime());
+            booking.setPrice(booking.getAsset().getPrice());
+            booking.setTotal(booking.getAsset().getPrice() * daysBetween);
+            return booking.getTotal();
+        }).sum();
 
-        InvoiceEntity invoice = invoiceMapper.toEntity(event, bookings, BigDecimal.valueOf(total), "PAID", LocalDateTime.now());
-        invoice = invoiceRepository.save(invoice);
+        InvoiceEntity toInvoice = invoiceMapper.toEntity(event, bookings, BigDecimal.valueOf(total), "PAID", LocalDateTime.now());
+        InvoiceEntity invoice = invoiceRepository.save(toInvoice);
 
         bookings.forEach(booking -> {
+            long daysBetween = ChronoUnit.DAYS.between(booking.getStartTime(), booking.getEndTime());
+
             booking.setPaymentStatus(PaymentStatus.COMPLETED);
+            booking.setInvoiceId(invoice.getId());
+            booking.setPrice(booking.getAsset().getPrice());
+            booking.setTotal(booking.getAsset().getPrice() * daysBetween);
             bookingRepository.save(booking);
         });
 

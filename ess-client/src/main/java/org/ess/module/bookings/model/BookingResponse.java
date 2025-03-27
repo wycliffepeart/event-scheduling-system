@@ -15,9 +15,11 @@ import org.ess.module.event.model.EventModel;
 @NoArgsConstructor
 public class BookingResponse {
     private long id;
+    private long invoiceId;
     private EventModel event;
     private AssetModel asset;
     private double price;
+    private double total;
     private String startDate;
     private String endDate;
     private PaymentStatus paymentStatus;

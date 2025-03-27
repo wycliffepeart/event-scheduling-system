@@ -58,6 +58,9 @@ public class BookingTableController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logger.info("Initialize");
 
+        TableColumn<BookingResponse, String> assetNameColumn = new TableColumn<>("Asset Name");
+        assetNameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAsset().getName()));
+
         TableColumn<BookingResponse, String> startDateColumn = new TableColumn<>("Start Date");
         startDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getStartDate()));
 
@@ -92,7 +95,7 @@ public class BookingTableController implements Initializable {
 
         fxBookingTableLayout
                 .getColumns()
-                .addAll(getCheckBox(), startDateColumn, endDateColumn, paymentStatusColumn, updateAtColumn, createAtColumn, getInvoiceColumn(), getEditColumn(), getDeleteColumn());
+                .addAll(getCheckBox(), assetNameColumn, startDateColumn, endDateColumn, paymentStatusColumn, updateAtColumn, createAtColumn, getInvoiceColumn(), getEditColumn(), getDeleteColumn());
 
         Platform.runLater(() -> {
             fxBookingTableLayout.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -219,7 +222,7 @@ public class BookingTableController implements Initializable {
                 button.setDisable(true);
             }
 
-            button.setOnMouseClicked(event -> View.invoiceWindow(Map.of("id", cellData.getValue())));
+            button.setOnMouseClicked(event -> View.invoiceWindow(Map.of("bookingModel", cellData.getValue())));
             return new SimpleObjectProperty<>(button);
         });
 

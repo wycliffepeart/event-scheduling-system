@@ -26,6 +26,9 @@ public class BookingMapper {
     public BookingResponseDTO toResponseDTO(BookingEntity entity) {
         return BookingResponseDTO.builder()
                 .id(entity.getId())
+                .invoiceId(entity.getInvoiceId())
+                .price(entity.getPrice())
+                .total(entity.getTotal())
                 .asset(assetMapper.toResponseDTO(entity.getAsset()))
                 .event(eventMapper.toEventResponseDTO(entity.getEvent()))
                 .startDate(entity.getStartTime())

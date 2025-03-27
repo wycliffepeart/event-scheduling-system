@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 public class BookingResponseDTO {
 
     private Long id;
+    private Long invoiceId;
+    private double price;
+    private double total;
     private LocalDate startDate;
     private LocalDate endDate;
     private PaymentStatus paymentStatus;

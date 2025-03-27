@@ -10,7 +10,8 @@ import lombok.experimental.Accessors;
 public class InvoiceTableData {
 
     private String name;
-    private double cost;
+    private double price;
+    private double total;
     private String startDate;
     private String endDate;
 }
