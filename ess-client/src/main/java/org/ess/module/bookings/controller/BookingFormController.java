@@ -14,10 +14,10 @@ import org.ess.app.common.FormMode;
 import org.ess.module.asset.model.AssetModel;
 import org.ess.module.asset.service.AssetService;
 import org.ess.module.bookings.event.BookingEvent;
-import org.ess.module.bookings.model.BookingModel;
+import org.ess.module.bookings.model.BookingRequest;
+import org.ess.module.bookings.model.BookingResponse;
 import org.ess.module.bookings.service.BookingService;
 import org.ess.module.event.model.EventModel;
-import org.ess.module.event.service.EventService;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,9 +35,6 @@ public class BookingFormController implements Initializable {
     protected VBox fxRoot;
 
     @FXML
-    protected ComboBox<Long> fxBookingEvent;
-
-    @FXML
     protected ComboBox<Long> fxBookingAsset;
 
     @FXML
@@ -46,7 +43,6 @@ public class BookingFormController implements Initializable {
     @FXML
     protected DatePicker fxBookingEndDate;
 
-    private final EventService eventService = new EventService();
     private final AssetService assetService = new AssetService();
     private final BookingService bookingService = new BookingService();
 
@@ -66,8 +62,8 @@ public class BookingFormController implements Initializable {
                         fxBookingAsset.getItems().clear();
                         fxBookingAsset.getItems().addAll(response.body().stream().map(AssetModel::getId).toList());
                         if (getFormMode().equals(FormMode.EDIT)) {
-                            BookingModel bookingModel = getBookingModelFromData();
-                            fxBookingAsset.setValue(bookingModel.getAssetId());
+                            BookingResponse bookingModel = getBookingModelFromData();
+                            fxBookingAsset.setValue(bookingModel.getAsset().getId());
                         }
                     }
                 }
@@ -78,31 +74,9 @@ public class BookingFormController implements Initializable {
                 }
             });
 
-            eventService.get(new Callback<>() {
-                @Override
-                public void onResponse(@NotNull Call<List<EventModel>> call, @NotNull Response<List<EventModel>> response) {
-                    logger.info("{} {}", response.code(), response.message());
-
-                    if (response.isSuccessful() && response.body() != null) {
-                        fxBookingEvent.getItems().clear();
-                        fxBookingEvent.getItems().addAll(response.body().stream().map(EventModel::getId).toList());
-                        if (getFormMode().equals(FormMode.EDIT)) {
-                            BookingModel bookingModel = getBookingModelFromData();
-                            fxBookingEvent.setValue(bookingModel.getEventId());
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NotNull Call<List<EventModel>> call, @NotNull Throwable throwable) {
-                    logger.info("{} {}", throwable.getMessage(), throwable.getCause());
-                }
-            });
-
             if (getFormMode().equals(FormMode.EDIT)) {
-                BookingModel bookingModel = getBookingModelFromData();
-                fxBookingEvent.setValue(bookingModel.getEventId());
-                fxBookingAsset.setValue(bookingModel.getAssetId());
+                BookingResponse bookingModel = getBookingModelFromData();
+                fxBookingAsset.setValue(bookingModel.getAsset().getId());
                 fxBookingStartDate.setValue(LocalDate.parse(bookingModel.getStartDate()));
                 fxBookingEndDate.setValue(LocalDate.parse(bookingModel.getEndDate()));
             }
@@ -129,7 +103,7 @@ public class BookingFormController implements Initializable {
     private void createBooking() {
         bookingService.post(getBookingModelFromForm(), new Callback<>() {
             @Override
-            public void onResponse(@NotNull Call<BookingModel> call, @NotNull Response<BookingModel> response) {
+            public void onResponse(@NotNull Call<BookingResponse> call, @NotNull Response<BookingResponse> response) {
                 logger.info("Create Booking Success {} {}", response.code(), response.message());
                 if (response.isSuccessful()) {
                     Platform.runLater(() -> fxRoot.getScene().getWindow().hide());
@@ -138,16 +112,16 @@ public class BookingFormController implements Initializable {
             }
 
             @Override
-            public void onFailure(@NotNull Call<BookingModel> call, @NotNull Throwable throwable) {
+            public void onFailure(@NotNull Call<BookingResponse> call, @NotNull Throwable throwable) {
                 logger.info("{} {}", throwable.getMessage(), throwable.getCause());
             }
         });
     }
 
     private void updateBooking() {
-        bookingService.put(getBookingModelFromData().setId(getBookingModelFromData().getId()), new Callback<>() {
+        bookingService.put(getBookingModelFromForm().setId(getBookingModelFromData().getId()), new Callback<>() {
             @Override
-            public void onResponse(@NotNull Call<BookingModel> call, @NotNull Response<BookingModel> response) {
+            public void onResponse(@NotNull Call<BookingResponse> call, @NotNull Response<BookingResponse> response) {
                 logger.info("Update Booking Success {} {}", response.code(), response.message());
                 if (response.isSuccessful()) {
                     Platform.runLater(() -> fxRoot.getScene().getWindow().hide());
@@ -156,16 +130,16 @@ public class BookingFormController implements Initializable {
             }
 
             @Override
-            public void onFailure(@NotNull Call<BookingModel> call, @NotNull Throwable throwable) {
+            public void onFailure(@NotNull Call<BookingResponse> call, @NotNull Throwable throwable) {
                 logger.info("{} {}", throwable.getMessage(), throwable.getCause());
             }
         });
     }
 
-    private BookingModel getBookingModelFromForm() {
-        logger.info("{} {} {} {}", fxBookingEvent.getValue(), fxBookingAsset.getValue(), fxBookingStartDate.getValue(), fxBookingEndDate.getValue());
-        BookingModel bookingModel = new BookingModel();
-        bookingModel.setEventId(fxBookingEvent.getValue());
+    private BookingRequest getBookingModelFromForm() {
+        logger.info("{} {} {}", fxBookingAsset.getValue(), fxBookingStartDate.getValue(), fxBookingEndDate.getValue());
+        BookingRequest bookingModel = new BookingRequest();
+        bookingModel.setEventId(getEventModelFromData().getId());
         bookingModel.setAssetId(fxBookingAsset.getValue());
         bookingModel.setStartDate(String.valueOf(fxBookingStartDate.getValue()));
         bookingModel.setEndDate(String.valueOf(fxBookingEndDate.getValue()));
@@ -181,8 +155,8 @@ public class BookingFormController implements Initializable {
         return FormMode.CREATE;
     }
 
-    private BookingModel getBookingModelFromData() {
-        var bookingModel = (BookingModel) getData().get("bookingModel");
+    private BookingResponse getBookingModelFromData() {
+        var bookingModel = (BookingResponse) getData().get("bookingModel");
 
         logger.info("Booking Model For Editing: {}", new Gson().toJson(bookingModel));
 
@@ -193,4 +167,13 @@ public class BookingFormController implements Initializable {
     private Map<String, Object> getData() {
         return (Map<String, Object>) fxRoot.getScene().getWindow().getUserData();
     }
+
+    private EventModel getEventModelFromData() {
+        var eventModel = (EventModel) getData().get("eventModel");
+
+        logger.info("Event Model For Editing: {}", new Gson().toJson(eventModel));
+
+        return eventModel;
+    }
+
 }

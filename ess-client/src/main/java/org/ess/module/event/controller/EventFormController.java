@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.ess.app.common.FormMode;
-import org.ess.module.asset.model.AssetModel;
 import org.ess.module.event.event.EventEvent;
 import org.ess.module.event.model.EventModel;
 import org.ess.module.event.service.EventService;

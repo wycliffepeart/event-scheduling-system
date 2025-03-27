@@ -76,7 +76,19 @@ public class EventTableController extends TabController implements Initializable
 
         fxEventTableLayout
                 .getColumns()
-                .addAll(idColumn, usernameColumn, firstNameColumn, lastNameColumn, dobColumn, updateAtColumn, createAtColumn, deleteStaff);
+                .addAll(
+                        idColumn,
+                        usernameColumn,
+                        firstNameColumn,
+                        lastNameColumn,
+                        dobColumn,
+                        updateAtColumn,
+                        createAtColumn,
+                        getBookingButton(),
+                        getInvoiceButton(),
+                        getEditButton(),
+                        getDeleteButton()
+                );
 
         setTabType(TabType.EVENT);
         Platform.runLater(this);
@@ -101,6 +113,50 @@ public class EventTableController extends TabController implements Initializable
                 logger.error(throwable);
             }
         });
+    }
+
+    private @NotNull TableColumn<EventModel, Button> getBookingButton() {
+        TableColumn<EventModel, Button> bookingColumn = new TableColumn<>("Booking");
+        bookingColumn.setCellValueFactory(cellData -> {
+            var button = new Button("Booking");
+            button.setOnMouseClicked(event -> View.bookingTableWindow(Map.of("eventModel", cellData.getValue())));
+            return new SimpleObjectProperty<>(button);
+        });
+
+        return bookingColumn;
+    }
+
+    private @NotNull TableColumn<EventModel, Button> getInvoiceButton() {
+        TableColumn<EventModel, Button> invoiceColumn = new TableColumn<>("Invoice");
+        invoiceColumn.setCellValueFactory(cellData -> {
+            var button = new Button("Invoice");
+            button.setOnMouseClicked(event -> View.eventFormWindow(Map.of("eventModel", cellData.getValue())));
+            return new SimpleObjectProperty<>(button);
+        });
+
+        return invoiceColumn;
+    }
+
+    private @NotNull TableColumn<EventModel, Button> getEditButton() {
+        TableColumn<EventModel, Button> editColumn = new TableColumn<>("Edit");
+        editColumn.setCellValueFactory(cellData -> {
+            var button = new Button("Edit");
+            button.setOnMouseClicked(event -> View.eventFormWindow(Map.of("mode", FormMode.EDIT, "eventModel", cellData.getValue())));
+            return new SimpleObjectProperty<>(button);
+        });
+
+        return editColumn;
+    }
+
+    private @NotNull TableColumn<EventModel, Button> getDeleteButton() {
+        TableColumn<EventModel, Button> deleteColumn = new TableColumn<>("Delete");
+        deleteColumn.setCellValueFactory(cellData -> {
+            var button = new Button("Delete");
+            button.setOnMouseClicked(event -> View.eventDeleteConfirmationWindow(Map.of("id", cellData.getValue().getId())));
+            return new SimpleObjectProperty<>(button);
+        });
+
+        return deleteColumn;
     }
 
     private static @NotNull TableColumn<EventModel, HBox> getAssetActionsTableColumn() {

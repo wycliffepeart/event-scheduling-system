@@ -32,6 +32,9 @@ public class AssetEntity {
     @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
+    private double price;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

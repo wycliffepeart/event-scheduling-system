@@ -2,10 +2,9 @@ package org.ess.app.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,8 +12,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 import java.time.LocalDate;
 
-
 public class HttpClient {
+
+    protected static final Logger logger = LogManager.getLogger(HttpClient.class);
+
 
     public static <T> T use(final Class<T> repository) {
 
@@ -33,7 +34,26 @@ public class HttpClient {
                         return chain.proceed(request.build());
                     }
                 })
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public @NotNull Response intercept(@NotNull Interceptor.Chain chain) throws IOException {
+                        Response response = chain.proceed(chain.request());
+
+                        // Log or inspect the response
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.peekBody(Long.MAX_VALUE);
+                            logger.info("Response Code: {}", response.code());
+                            assert response.body() != null;
+                            logger.info("Response Body: {}", responseBody.string());
+                        } else {
+                            logger.info("Request Failed: {} {}", response.code(), response.message());
+                        }
+
+                        return response;
+                    }
+                })
                 .build();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class AssetResponseDTO {
     private Long id;
     private String name;
+    private double price;
     private String category;
     private Integer quantity;
     private String status;

@@ -1,26 +1,28 @@
 package org.ess.module.bookings.repository;
 
-import org.ess.module.bookings.model.BookingModel;
-import org.ess.module.event.model.EventModel;
+import org.ess.module.bookings.model.BookingRequest;
+import org.ess.module.bookings.model.BookingResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookingRepository {
 
     @GET("/api/bookings")
-    Call<List<BookingModel>> get();
+    Call<List<BookingResponse>> get(@QueryMap Map<String, String> options);
 
     @POST("/api/bookings")
-    Call<BookingModel> post(@Body BookingModel bookingModel);
+    Call<BookingResponse> post(@Body BookingRequest bookingModel);
 
     @GET("/api/bookings/{id}")
-    Call<BookingModel> get(@Path("id") long id);
+    Call<BookingResponse> get(@Path("id") long id);
 
     @PUT("/api/bookings/{id}")
-    Call<BookingModel> put(@Path("id") long id, @Body BookingModel bookingModel);
+    Call<BookingResponse> put(@Path("id") long id, @Body BookingRequest bookingModel);
 
     @DELETE("/api/bookings/{id}")
     Call<Boolean> delete(@Path("id") long id);
+
 }
