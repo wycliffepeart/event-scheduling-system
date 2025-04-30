@@ -1,6 +1,5 @@
 package com.ess.essserver.app.auth;
 
-
 import jakarta.servlet.FilterChain;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -12,7 +11,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 
 @Component
 @AllArgsConstructor
